@@ -1,5 +1,3 @@
-// Файл CardsList.jsx 
-
 import Link from "next/link";
 import { Card } from "../Card/Card";
 import Styles from "./CardsListSection.module.css";
