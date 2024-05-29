@@ -1,19 +1,22 @@
-'use client';
-import { useState } from 'react';
+"use client";
 
-import Styles from './Header.module.css'
-import Link from 'next/link';
-import { Overlay } from '../Overlay/Overlay';
-import { Popup } from '../Popup/Popup';
-import { AuthForm } from '../AuthForm/AuthForm';
+import { useState } from "react";
+
+import Styles from "./Header.module.css";
+import { Overlay } from "../Overlay/Overlay";
+import { Popup } from "../Popup/Popup";
+import { AuthForm } from "../AuthForm/AuthForm";
+
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import { useStore } from "@/app/store/app-store";
 
 export const Header = () => {
   const [popupIsOpened, setPopupIsOpened] = useState(false);
 
-  const authContext = useStore()
-  
+  const authContext = useStore();
+
   const openPopup = () => {
     setPopupIsOpened(true);
   };
@@ -24,11 +27,10 @@ export const Header = () => {
   const pathname = usePathname();
 
   const handleLogout = () => {
-    authContext.logout(); // Метод logout из контекста
+    authContext.logout();
   };
-  
   return (
-    <header className={Styles['header']}>
+    <header className={Styles["header"]}>
       {pathname === "/" ? (
         <span className={Styles["logo"]}>
           <img
@@ -46,70 +48,85 @@ export const Header = () => {
           />
         </Link>
       )}
-      <nav className={Styles['menu']}>
-        <ul className={Styles['menu__list']}>
-          <li className={Styles['menu__item']}>
-          <Link
-            href="/new"
-            className={`${Styles["menu__link"]} ${
-              pathname === "/new" ? Styles["menu__link_active"] : ""
-            }`}
-          >
-            Новинки
-          </Link>
+      <nav className={Styles["menu"]}>
+        <ul className={Styles["menu__list"]}>
+          <li className={Styles["menu__item"]}>
+            <Link
+              href="/new"
+              className={`${Styles["menu__link"]} ${
+                pathname === "/new" && Styles["menu__link_active"]
+              }`}
+            >
+              Новинки
+            </Link>
           </li>
-          <li className={Styles['menu__item']}>
-            <Link href="/popular" className={`${Styles["menu__link"]} ${
-              pathname === "/popular" ? Styles["menu__link_active"] : ""
-            }`}>
+          <li className={Styles["menu__item"]}>
+            <Link
+              href="/popular"
+              className={`${Styles["menu__link"]} ${
+                pathname === "/popular" && Styles["menu__link_active"]
+              }`}
+            >
               Популярные
             </Link>
           </li>
-          <li className={Styles['menu__item']}>
-            <Link href="/shooter" className={`${Styles["menu__link"]} ${
-              pathname === "/shooter" ? Styles["menu__link_active"] : ""
-            }`}>
+          <li className={Styles["menu__item"]}>
+            <Link
+              href="/shooters"
+              className={`${Styles["menu__link"]} ${
+                pathname === "/shooters" && Styles["menu__link_active"]
+              }`}
+            >
               Шутеры
             </Link>
           </li>
-          <li className={Styles['menu__item']}>
-            <Link href="/runner" className={`${Styles["menu__link"]} ${
-              pathname === "/runner" ? Styles["menu__link_active"] : ""
-            }`}>
-              Ранеры
+          <li className={Styles["menu__item"]}>
+            <Link
+              href="/runners"
+              className={`${Styles["menu__link"]} ${
+                pathname === "/runners" && Styles["menu__link_active"]
+              }`}
+            >
+              Раннеры
             </Link>
           </li>
-          <li className={Styles['menu__item']}>
-            <Link href="/pixel" className={`${Styles["menu__link"]} ${
-              pathname === "/pixel" ? Styles["menu__link_active"] : ""
-            }`}>
+          <li className={Styles["menu__item"]}>
+            <Link
+              href="/pixel-games"
+              className={`${Styles["menu__link"]} ${
+                pathname === "/pixel-games" && Styles["menu__link_active"]
+              }`}
+            >
               Пиксельные
             </Link>
           </li>
-          <li className={Styles['menu__item']}>
-            <Link href="/tds" className={`${Styles["menu__link"]} ${
-              pathname === "/tds" ? Styles["menu__link_active"] : ""
-            }`}>
+          <li className={Styles["menu__item"]}>
+            <Link
+              href="/tds"
+              className={`${Styles["menu__link"]} ${
+                pathname === "/tds" && Styles["menu__link_active"]
+              }`}
+            >
               TDS
             </Link>
           </li>
         </ul>
         <div className={Styles["auth"]}>
-          {authContext.isAuth ? ( 
+          {authContext.isAuth ? (
             <button className={Styles["auth__button"]} onClick={handleLogout}>
               Выйти
             </button>
-            ) : (
+          ) : (
             <button className={Styles["auth__button"]} onClick={openPopup}>
               Войти
             </button>
           )}
         </div>
-        </nav>
-          <Overlay isOpened = {popupIsOpened} close = {closePopup} />
-          <Popup isOpened = {popupIsOpened} close = {closePopup}>
-              <AuthForm close={closePopup} />
-          </Popup>
+      </nav>
+      <Overlay isOpened={popupIsOpened} close={closePopup} />
+      <Popup isOpened={popupIsOpened} close={closePopup}>
+        <AuthForm close={closePopup} />
+      </Popup>
     </header>
-  )
-}
+  );
+};

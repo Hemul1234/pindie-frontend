@@ -1,4 +1,4 @@
-export const getGamesByCategory = (category) => {
+export const getGamesByCategory = (data, category) => {
   return data.filter((game) => {
     return game.category.find((item) => item.name === category);
   });
